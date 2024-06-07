@@ -61,6 +61,7 @@ model User {
   clerkId String?
   password String
   Order Order[]
+  Image Image[]
   photo String?
   firstName String?
   lastName String?
@@ -136,6 +137,28 @@ model UserFavourite {
   Board     Board  @relation(fields: [boardId], references: [id])
   @@unique([userId, boardId])
 }
+
+model Image {
+  id                 String   @id @default(cuid())
+  title              String
+  transformationType String
+  publicId           String
+  secureURL          String
+  width              Int?
+  height             Int?
+  config             Json?
+  transformationUrl  String?
+  aspectRatio        String?
+  color              String?
+  prompt             String?
+  authorId           String?  
+  author             User?    @relation(fields: [authorId], references: [id])
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+
+}
+
 
 model Product {
   id              String        @id @default(cuid())

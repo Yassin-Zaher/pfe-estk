@@ -7,8 +7,10 @@ import QueryProviders from "@/components/Providers";
 import { constructMetadata } from "@/lib/utils";
 import { ClerkProvider } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
-import { Toaster } from "sonner";
+
 import { ModalProvider } from "@/providers/modal-provider";
+import { Toaster as UIToaster } from "@/components/ui/toaster";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 const recursive = Recursive({ subsets: ["latin"] });
@@ -31,6 +33,7 @@ export default function RootLayout({
             <ModalProvider />
           </QueryProviders>
 
+          <UIToaster />
           <Toaster theme="light" closeButton richColors />
         </body>
       </html>
