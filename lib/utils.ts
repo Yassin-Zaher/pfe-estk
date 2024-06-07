@@ -120,3 +120,5 @@ export const exportToPdf = () => {
   // download the pdf
   doc.save("canvas.pdf");
 };
+
+//---------------------------------------------

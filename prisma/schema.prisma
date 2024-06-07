@@ -61,6 +61,11 @@ model User {
   clerkId String?
   password String
   Order Order[]
+  photo String?
+  firstName String?
+  lastName String?
+  planId Int?
+  creditBalance Int?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

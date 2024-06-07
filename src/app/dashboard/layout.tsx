@@ -30,7 +30,9 @@ export default async function DashboardLayout({
       <div className="flex h-screen overflow-hidden">
         <Sidebar />
         <MobileNav />
-        <main className="flex-1 overflow-hidden pt-16">{children}</main>
+        <div className="root-container">
+          <div className="wrapper">{children}</div>
+        </div>
       </div>
     </>
   );
