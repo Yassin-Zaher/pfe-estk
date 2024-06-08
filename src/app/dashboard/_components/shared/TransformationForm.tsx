@@ -37,7 +37,7 @@ import TransformedImage from "./TransformedImage";
 import { updateCredits, updateCreditsPrisma } from "@/lib/actions/user.actions";
 import { getCldImageUrl } from "next-cloudinary";
 import { addImage, updateImage } from "@/lib/actions/image.actions";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { InsufficientCreditsModal } from "./InsufficientCreditsModal";
 import { useUser } from "@clerk/nextjs";
 
@@ -66,9 +66,6 @@ const TransformationForm = ({
   const [transformationConfig, setTransformationConfig] = useState(config);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const initialImageUrl = searchParams.get("name");
 
   const initialValues =
     data && action === "Update"
@@ -206,6 +203,8 @@ const TransformationForm = ({
   };
 
   useEffect(() => {
+    console.log("[TRASNFORMATION FROM] : ");
+
     if (image && (type === "restore" || type === "removeBackground")) {
       setNewTransformation(transformationType.config);
     }

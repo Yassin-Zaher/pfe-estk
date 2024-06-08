@@ -17,12 +17,11 @@ import { Collection } from "./_components/shared/Collection";
 import { CollectionTwo } from "./_components/shared/CollectionTwo";
 
 const Home = async ({ searchParams }) => {
-  /* const page = Number(searchParams?.page) || 1; */
-  const page = 1;
+  const page = Number(searchParams?.page) || 1;
   const searchQuery = (searchParams?.query as string) || "";
 
-  /* const images = await getAllImages({ page, searchQuery }); */
-  const images = await getConfigImages();
+  const images = await getAllImages({ page, searchQuery });
+  /* const images = await getConfigImages(); */
 
   return (
     <>
@@ -44,18 +43,18 @@ const Home = async ({ searchParams }) => {
       </section>
 
       <section className="sm:mt-12">
-        <CollectionTwo
+        {/* <CollectionTwo
           hasSearch={true}
           images={images}
           totalPages={0}
           page={page}
-        />
-        {/* <CollectionT
+        /> */}
+        <Collection
           hasSearch={true}
           images={images?.data}
           totalPages={images?.totalPage}
           page={page}
-        /> */}
+        />
       </section>
     </>
   );
