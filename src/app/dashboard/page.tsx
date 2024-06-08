@@ -26,66 +26,53 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Overview } from "./_components/OverView";
 import { RecentSales } from "./_components/recent-sales";
+import { getAllImages } from "@/lib/actions/image.actions";
+import { navLinks } from "@/constants";
 
-const Page = async () => {
-  const user = await currentUser();
-  const ADMIN_EMAIL = "yassinzaherpro@gmail.com";
-  //console.log(user.user.emailAddresses[0].emailAddress);
+const Home = async ({ searchParams }: SearchParamProps) => {
+  const page = Number(searchParams?.page) || 1;
+  const searchQuery = (searchParams?.query as string) || "";
 
-  /*  if (!user || user.emailAddresses[0].emailAddress !== ADMIN_EMAIL) {
-    return notFound();
-  } */
-
-  const orders = await db.order.findMany({
-    where: {
-      isPaid: true,
-      createdAt: {
-        // get me the order from the last week
-        gte: new Date(new Date().setDate(new Date().getDate() - 7)),
-      },
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-    include: {
-      user: true,
-      shippingAddress: true,
-    },
-  });
-
-  const lastWeekSum = await db.order.aggregate({
-    where: {
-      isPaid: true,
-      createdAt: {
-        gte: new Date(new Date().setDate(new Date().getDate() - 7)),
-      },
-    },
-    _sum: {
-      amount: true,
-    },
-  });
-
-  const lastMonthSum = await db.order.aggregate({
-    where: {
-      isPaid: true,
-      createdAt: {
-        gte: new Date(new Date().setDate(new Date().getDate() - 30)),
-      },
-    },
-    _sum: {
-      amount: true,
-    },
-  });
-
-  const WEEKLY_GOAL = 500;
-  const MONTHLY_GOAL = 2500;
-  const recentSales = orders.map((order) => ({
-    email: order.user.email,
-    total: order.amount, // Assuming order has a total field
-  }));
+  const images = await getAllImages({ page, searchQuery });
 
   return (
-    <ScrollArea className="h-full">
+    <>
+      <section className="home">
+        <h1 className="home-heading">
+          Unleash Your Creative Vision with Imaginify
+        </h1>
+        <ul className="flex-center w-full gap-20">
+          {navLinks.slice(1, 5).map((link) => (
+            <Link
+              key={link.route}
+              href={link.route}
+              className="flex-center flex-col gap-2"
+            >
+              <li className="flex-center w-fit rounded-full bg-white p-4">
+                <Image src={link.icon} alt="image" width={24} height={24} />
+              </li>
+              <p className="p-14-medium text-center text-white">{link.label}</p>
+            </Link>
+          ))}
+        </ul>
+      </section>
+
+      <section className="sm:mt-12">
+        <Collection
+          hasSearch={true}
+          images={images?.data}
+          totalPages={images?.totalPage}
+          page={page}
+        />
+      </section>
+    </>
+  );
+};
+
+export default Page;
+
+/*
+ <ScrollArea className="h-full">
       <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
         <div className="flex items-center justify-between space-y-2">
           <h2 className="text-3xl font-bold tracking-tight">
@@ -275,51 +262,5 @@ const Page = async () => {
         </Tabs>
       </div>
     </ScrollArea>
-  );
-};
 
-export default Page;
-
-/*
-
- <div className="grid gap-4 sm:grid-cols-2">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardDescription>Last Week</CardDescription>
-                  <CardTitle className="text-4xl">
-                    {formatPrice(lastWeekSum._sum.amount ?? 0)}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-sm text-muted-foreground">
-                    of {formatPrice(WEEKLY_GOAL)} goal
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Progress
-                    value={((lastWeekSum._sum.amount ?? 0) * 100) / WEEKLY_GOAL}
-                  />
-                </CardFooter>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardDescription>Last Month</CardDescription>
-                  <CardTitle className="text-4xl">
-                    {formatPrice(lastMonthSum._sum.amount ?? 0)}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-sm text-muted-foreground">
-                    of {formatPrice(MONTHLY_GOAL)} goal
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Progress
-                    value={
-                      ((lastMonthSum._sum.amount ?? 0) * 100) / MONTHLY_GOAL
-                    }
-                  />
-                </CardFooter>
-              </Card>
-            </div>
 */

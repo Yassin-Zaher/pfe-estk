@@ -147,7 +147,7 @@ model Image {
   width              Int?
   height             Int?
   config             Json?
-  transformationUrl  String?
+  transformationURL  String?
   aspectRatio        String?
   color              String?
   prompt             String?

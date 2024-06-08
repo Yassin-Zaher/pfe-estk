@@ -34,7 +34,7 @@ import { useEffect, useState, useTransition } from "react";
 import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils";
 import MediaUploader from "./MediaUploader";
 import TransformedImage from "./TransformedImage";
-import { updateCredits } from "@/lib/actions/user.actions";
+import { updateCredits, updateCreditsPrisma } from "@/lib/actions/user.actions";
 import { getCldImageUrl } from "next-cloudinary";
 import { addImage, updateImage } from "@/lib/actions/image.actions";
 import { useRouter } from "next/navigation";
@@ -114,13 +114,13 @@ const TransformationForm = ({
           const newImage = await addImage({
             image: imageData,
             userId,
-            path: "/",
+            path: "/dashboard",
           });
 
           if (newImage) {
             form.reset();
             setImage(data);
-            router.push(`/transformations/${newImage._id}`);
+            router.push(`/dashboard/transformations/${newImage.id}`);
           }
         } catch (error) {
           console.log(error);
@@ -132,14 +132,14 @@ const TransformationForm = ({
           const updatedImage = await updateImage({
             image: {
               ...imageData,
-              _id: data._id,
+              id: data.id,
             },
             userId,
-            path: `/transformations/${data._id}`,
+            path: `/dashboard/transformations/${data.id}`,
           });
 
           if (updatedImage) {
-            router.push(`/transformations/${updatedImage._id}`);
+            router.push(`/dashboard/transformations/${updatedImage.id}`);
           }
         } catch (error) {
           console.log(error);
@@ -197,7 +197,7 @@ const TransformationForm = ({
     setNewTransformation(null);
 
     startTransition(async () => {
-      await updateCredits(userId, creditFee);
+      await updateCreditsPrisma(userId, creditFee);
     });
   };
 
