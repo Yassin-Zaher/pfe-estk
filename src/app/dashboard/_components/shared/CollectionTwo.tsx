@@ -19,22 +19,17 @@ import { Button } from "@/components/ui/button";
 
 import { Search } from "./Search";
 
-export const Collection = ({
+export const CollectionTwo = ({
   hasSearch = false,
   images,
   totalPages = 1,
   page,
-}: {
-  images: IImage[];
-  totalPages?: number;
-  page: number;
-  hasSearch?: boolean;
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   // PAGINATION HANDLER
-  const onPageChange = (action: string) => {
+  /* const onPageChange = (action: string) => {
     const pageValue = action === "next" ? Number(page) + 1 : Number(page) - 1;
 
     const newUrl = formUrlQuery({
@@ -44,7 +39,7 @@ export const Collection = ({
     });
 
     router.push(newUrl, { scroll: false });
-  };
+  }; */
 
   return (
     <>
@@ -94,28 +89,27 @@ export const Collection = ({
   );
 };
 
-const Card = ({ image }: { image: IImage }) => {
+const Card = ({ image }) => {
   return (
     <li>
       <Link
-        href={`/dashboard/transformations/${image.id}`}
+        href={`/dashboard/transformations/add/removeBackground?name=${image.imageUrl}`}
         className="collection-card"
       >
-        <CldImage
-          src={image.publicId}
-          alt={image.title}
+        <Image
+          src={image.imageUrl}
+          alt={image.id}
           width={image.width}
           height={image.height}
-          {...image.config}
           loading="lazy"
           className="h-52 w-full rounded-[10px] object-cover"
           sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 33vw"
         />
         <div className="flex-between">
           <p className="p-20-semibold mr-3 line-clamp-1 text-dark-600">
-            {image.title}
+            {image.id}
           </p>
-          <Image
+          {/*  <Image
             src={`/assets/icons/${
               transformationTypes[
                 image.transformationType as TransformationTypeKey
@@ -124,7 +118,7 @@ const Card = ({ image }: { image: IImage }) => {
             alt={image.title}
             width={24}
             height={24}
-          />
+          /> */}
         </div>
       </Link>
     </li>

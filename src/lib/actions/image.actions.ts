@@ -108,8 +108,8 @@ export async function getAllImages({
   try {
     cloudinary.config({
       cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-      api_key: process.env.CLOUDINARY_API_KEY,
-      api_secret: process.env.CLOUDINARY_API_SECRET,
+      api_key: process.env.NEXT_PUBLIC_CLOUD_API_KEY,
+      api_secret: process.env.NEXT_PUBLIC_CLOUD_API_SECRET,
       secure: true,
     });
 
@@ -200,6 +200,15 @@ export async function getUserImages({
       data: images,
       totalPages: Math.ceil(totalImages / limit),
     };
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+export async function getConfigImages() {
+  try {
+    const images = await db.configuration.findMany({});
+    return images;
   } catch (error) {
     handleError(error);
   }

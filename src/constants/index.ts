@@ -1,8 +1,13 @@
 export const navLinks = [
   {
     label: "Home",
-    route: "/",
+    route: "/dashboard",
     icon: "/assets/icons/home.svg",
+  },
+  {
+    label: "Orders",
+    route: "/dashboard/orders",
+    icon: "/assets/icons/camera.svg",
   },
   {
     label: "Image Restore",
@@ -28,16 +33,6 @@ export const navLinks = [
     label: "Background Remove",
     route: "/dashboard/transformations/add/removeBackground",
     icon: "/assets/icons/camera.svg",
-  },
-  {
-    label: "Profile",
-    route: "/dashboard/profile",
-    icon: "/assets/icons/profile.svg",
-  },
-  {
-    label: "Buy Credits",
-    route: "/dashboard/credits",
-    icon: "/assets/icons/bag.svg",
   },
 ];
 

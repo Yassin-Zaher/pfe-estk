@@ -37,8 +37,9 @@ import TransformedImage from "./TransformedImage";
 import { updateCredits, updateCreditsPrisma } from "@/lib/actions/user.actions";
 import { getCldImageUrl } from "next-cloudinary";
 import { addImage, updateImage } from "@/lib/actions/image.actions";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { InsufficientCreditsModal } from "./InsufficientCreditsModal";
+import { useUser } from "@clerk/nextjs";
 
 export const formSchema = z.object({
   title: z.string(),
@@ -65,6 +66,9 @@ const TransformationForm = ({
   const [transformationConfig, setTransformationConfig] = useState(config);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const initialImageUrl = searchParams.get("name");
 
   const initialValues =
     data && action === "Update"

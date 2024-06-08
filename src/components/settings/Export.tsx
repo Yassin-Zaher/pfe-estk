@@ -5,6 +5,11 @@ import { startTransition } from "react";
 import { toast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
 import { imgUrls } from "@/lib/utils";
+import { addImage } from "@/lib/actions/image.actions";
+import {
+  getCloudConfig,
+  getCloudSignature,
+} from "@/app/dashboard/products/create/actions";
 
 const Export = ({ fabricRef }) => {
   const router = useRouter();
@@ -14,6 +19,7 @@ const Export = ({ fabricRef }) => {
       console.log("Data");
       console.log(data);
       const configId = data.serverData.configId;
+
       startTransition(() => {
         router.push(`/configure/preview?id=${configId}`);
       });
@@ -152,6 +158,27 @@ const Export = ({ fabricRef }) => {
 
     //startUpload(acceptedFiles, { configId: undefined, custom: true });
   };
+
+  /* export const uploadImage = async (file: File) => {
+    const { signature, timestamp } = await getCloudSignature();
+    const cloudConfig = await getCloudConfig();
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("api_key", cloudConfig.key);
+    formData.append("signature", signature);
+    formData.append("timestamp", timestamp.toString());
+
+    const endpoint = `https://api.cloudinary.com/v1_1/${cloudConfig.name}/image/upload`;
+
+    const res = await fetch(endpoint, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+    return { url: data.secure_url, id: data.public_id };
+  }; */
 
   const convertCanvasToPngDirect = () => {
     const canvasElement = fabricRef.current.getElement();

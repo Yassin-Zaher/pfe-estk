@@ -1,24 +1,7 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import { db } from "@/db";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import { formatPrice } from "@/lib/utils";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import StatusDropdown from "./StatusDropdown";
 import { currentUser } from "@clerk/nextjs/server";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -26,21 +9,24 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Overview } from "./_components/OverView";
 import { RecentSales } from "./_components/recent-sales";
-import { getAllImages } from "@/lib/actions/image.actions";
+import { getAllImages, getConfigImages } from "@/lib/actions/image.actions";
 import { navLinks } from "@/constants";
+import Link from "next/link";
+import Image from "next/image";
+import { Collection } from "./_components/shared/Collection";
+import { CollectionTwo } from "./_components/shared/CollectionTwo";
 
-const Home = async ({ searchParams }: SearchParamProps) => {
-  const page = Number(searchParams?.page) || 1;
+const Home = async ({ searchParams }) => {
+  /* const page = Number(searchParams?.page) || 1; */
+  const page = 1;
   const searchQuery = (searchParams?.query as string) || "";
 
-  const images = await getAllImages({ page, searchQuery });
+  /* const images = await getAllImages({ page, searchQuery }); */
+  const images = await getConfigImages();
 
   return (
     <>
       <section className="home">
-        <h1 className="home-heading">
-          Unleash Your Creative Vision with Imaginify
-        </h1>
         <ul className="flex-center w-full gap-20">
           {navLinks.slice(1, 5).map((link) => (
             <Link
@@ -58,18 +44,24 @@ const Home = async ({ searchParams }: SearchParamProps) => {
       </section>
 
       <section className="sm:mt-12">
-        <Collection
+        <CollectionTwo
+          hasSearch={true}
+          images={images}
+          totalPages={0}
+          page={page}
+        />
+        {/* <CollectionT
           hasSearch={true}
           images={images?.data}
           totalPages={images?.totalPage}
           page={page}
-        />
+        /> */}
       </section>
     </>
   );
 };
 
-export default Page;
+export default Home;
 
 /*
  <ScrollArea className="h-full">

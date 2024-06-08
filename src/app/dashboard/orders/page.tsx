@@ -19,6 +19,7 @@ import { formatPrice } from "@/lib/utils";
 import StatusDropdown from "../StatusDropdown";
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "@/db";
+import Image from "next/image";
 
 const Page = async () => {
   const user = await currentUser();
@@ -43,6 +44,7 @@ const Page = async () => {
     include: {
       user: true,
       shippingAddress: true,
+      configuration: true,
     },
   });
 
@@ -74,7 +76,7 @@ const Page = async () => {
   const MONTHLY_GOAL = 2500;
 
   return (
-    <div className="flex min-h-screen w-full bg-muted/40 px-20">
+    <div className="flex min-h-screen w-full  px-20">
       <div className="max-w-7xl w-full mx-auto flex flex-col sm:gap-4 sm:py-4">
         <div className="flex flex-col gap-16">
           <h1 className="text-4xl font-bold tracking-tight">Incoming orders</h1>
@@ -88,6 +90,7 @@ const Page = async () => {
                   Purchase date
                 </TableHead>
                 <TableHead className="text-right">Amount</TableHead>
+                <TableHead className="text-right">Object</TableHead>
               </TableRow>
             </TableHeader>
 
@@ -98,7 +101,7 @@ const Page = async () => {
                     <div className="font-medium">
                       {order.shippingAddress?.name}
                     </div>
-                    <div className="hidden text-sm text-muted-foreground md:inline">
+                    <div className="hidden text-black text-sm md:inline">
                       {order.user.email}
                     </div>
                   </TableCell>
@@ -110,6 +113,9 @@ const Page = async () => {
                   </TableCell>
                   <TableCell className="text-right">
                     {formatPrice(order.amount)}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    {order.configuration.model}
                   </TableCell>
                 </TableRow>
               ))}
