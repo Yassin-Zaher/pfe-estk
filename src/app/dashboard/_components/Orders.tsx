@@ -21,11 +21,21 @@ import StatusDropdown from "../StatusDropdown";
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "@/db";
 import Image from "next/image";
-import { Copy } from "lucide-react";
+import { Copy, CopyIcon } from "lucide-react";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { format } from "date-fns";
 
 const Orders = ({ orders }) => {
-  const handleCopieImageLink = () => {};
+  const handleCopyImageLink = async (imageUrl) => {
+    try {
+      await navigator.clipboard.writeText(imageUrl);
+      toast.success("Image URL copied to clipboard!");
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+      toast.error("Failed to copy:");
+    }
+  };
   return (
     <div className="max-w-7xl w-full mx-auto flex flex-col sm:gap-4 sm:py-4">
       <div className="flex flex-col gap-16">
@@ -57,7 +67,7 @@ const Orders = ({ orders }) => {
                   <StatusDropdown id={order.id} orderStatus={order.status} />
                 </TableCell>
                 <TableCell className="hidden md:table-cell">
-                  {order.createdAt.toLocaleDateString()}
+                  {format(new Date(order.createdAt), "MM/dd/yyyy")}
                 </TableCell>
                 <TableCell className="text-right">
                   {formatPrice(order.amount)}
@@ -66,7 +76,14 @@ const Orders = ({ orders }) => {
                   {order.configuration.model}
                 </TableCell>
                 <TableCell className="text-right cursor-pointer p-2">
-                  Hello
+                  <Button
+                    variant="link"
+                    onClick={() =>
+                      handleCopyImageLink(order.configuration.imageUrl)
+                    }
+                  >
+                    <CopyIcon />
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

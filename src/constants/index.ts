@@ -1,7 +1,7 @@
 export const navLinks = [
   {
     label: "Home",
-    route: "/dashboard",
+    route: "/dashboard/stats",
     icon: "/assets/icons/home.svg",
   },
   {
@@ -9,6 +9,13 @@ export const navLinks = [
     route: "/dashboard/orders",
     icon: "/assets/icons/camera.svg",
   },
+
+  {
+    label: "Tools",
+    route: "/dashboard",
+    icon: "/assets/icons/home.svg",
+  },
+
   {
     label: "Image Restore",
     route: "/dashboard/transformations/add/restore",
