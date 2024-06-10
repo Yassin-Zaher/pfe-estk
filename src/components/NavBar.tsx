@@ -5,9 +5,10 @@ import { buttonVariants } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "./ui/use-toast";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, useAuth } from "@clerk/nextjs";
 
-const Navbar = ({ userId }) => {
+const Navbar = () => {
+  const { isLoaded, userId, sessionId, getToken } = useAuth();
   const { toast } = useToast();
 
   const isAdmin =
@@ -34,7 +35,18 @@ const Navbar = ({ userId }) => {
                   >
                     Dashboard ✨
                   </Link>
-                ) : null}
+                ) : (
+                  <Link
+                    href="/myorders"
+                    className={buttonVariants({
+                      size: "sm",
+                      variant: "ghost",
+                    })}
+                  >
+                    My Orders ✨
+                  </Link>
+                )}
+
                 <Link
                   href="/configure/upload"
                   className={buttonVariants({

@@ -5,12 +5,12 @@ import Navbar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import QueryProviders from "@/components/Providers";
 import { constructMetadata } from "@/lib/utils";
-import { ClerkProvider } from "@clerk/nextjs";
-import { auth } from "@clerk/nextjs/server";
+import { ClerkProvider, useAuth } from "@clerk/nextjs";
 
 import { ModalProvider } from "@/providers/modal-provider";
 import { Toaster as UIToaster } from "@/components/ui/toaster";
 import { Toaster } from "sonner";
+import { currentUser } from "@clerk/nextjs/server";
 
 const inter = Inter({ subsets: ["latin"] });
 const recursive = Recursive({ subsets: ["latin"] });
@@ -22,12 +22,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { userId } = auth();
   return (
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          <Navbar userId={userId} />
+          <Navbar />
           <QueryProviders>
             {children}
             <ModalProvider />

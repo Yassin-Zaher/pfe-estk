@@ -10,7 +10,15 @@ import { useEffect, useState } from "react";
 import { COLORS } from "@/validators/option-validator";
 import { useAuth } from "@clerk/nextjs";
 import Tshirt from "@/components/Tshirt";
+import { OrderStatus } from "@prisma/client";
 
+const LABEL_MAP: Record<keyof typeof OrderStatus, string> = {
+  awaiting_shipment: "Awaiting Shipment",
+  fulfilled: "Fulfilled",
+  shipped: "Shipped",
+  received: "Received",
+  awaiting_processing: "Awaiting Processing",
+};
 const ThankYou = () => {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId") || "";
@@ -47,7 +55,8 @@ const ThankYou = () => {
     );
   }
 
-  const { configuration, billingAddress, shippingAddress, amount } = data;
+  const { configuration, billingAddress, shippingAddress, amount, status } =
+    data;
   const { color, model, imageUrl } = configuration;
   const tw = COLORS.find(
     (supportedColor) => supportedColor.value === color
@@ -59,10 +68,14 @@ const ThankYou = () => {
         <div className="max-w-xl">
           <p className="text-base font-medium text-primary">Thank you!</p>
           <h1 className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">
-            Your article is on the way!
+            Your article is on the way
           </h1>
           <p className="mt-2 text-base text-zinc-500">
-            We've received your order and are now processing it.
+            We've received your order and you're order status is :{" "}
+            <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+              {" "}
+              {LABEL_MAP[status]}
+            </span>
           </p>
 
           <div className="mt-12 text-sm font-medium">
@@ -85,18 +98,20 @@ const ThankYou = () => {
           </div>
         </div>
 
-        <div className="flex space-x-6 overflow-hidden mt-4 rounded-xl bg-gray-900/5 ring-1 ring-inset ring-gray-900/10 lg:rounded-2xl">
-          {model === "custom" ? (
+        {model === "custom" || model === "tshirt" ? (
+          <div className="flex space-x-6 overflow-hidden mt-4 rounded-xl bg-white ring-1 ring-inset lg:rounded-2xl">
             <Tshirt imgSrc={imageUrl} model={model} />
-          ) : (
+          </div>
+        ) : (
+          <div className="flex space-x-6 overflow-hidden mt-4 rounded-xl bg-gray-900/5 ring-1 ring-inset ring-gray-900/10 lg:rounded-2xl">
             <PhonePreview
               croppedImageUrl={configuration.croppedImageUrl!}
               color={color!}
               model={model}
               className={cn(`bg-${tw}`, "max-w-[150px] md:max-w-full")}
             />
-          )}
-        </div>
+          </div>
+        )}
 
         <div>
           <div className="grid grid-cols-2 gap-x-6 py-10 text-sm">

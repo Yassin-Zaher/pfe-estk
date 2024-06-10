@@ -2,21 +2,18 @@ import { cn } from "@/lib/utils";
 import { HTMLAttributes, useEffect, useState } from "react";
 
 const Tshirt = ({ imgSrc, model, className, ...props }) => {
-  const [modelImg, setModelImg] = useState("");
-  console.log(imgSrc);
+  const [modelImg, setModelImg] = useState("/over-tshirt-image.png");
 
   useEffect(() => {
     switch (model) {
       case "tshirt":
         setModelImg("/over-tshirt-image.png");
         break;
-      case "phone":
-        setModelImg("/phone-template-white-edges.png");
-        break;
       case "custom":
         setModelImg(imgSrc);
     }
-  });
+  }, []);
+
   return (
     <div
       className={cn(
@@ -41,7 +38,7 @@ const Tshirt = ({ imgSrc, model, className, ...props }) => {
 
           <div className="absolute -z-10 inset-0">
             <img
-              className="object-cover min-w-full min-h-full"
+              className="object-cover"
               src={imgSrc}
               alt="overlaying phone image"
             />

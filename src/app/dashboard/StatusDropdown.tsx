@@ -18,6 +18,8 @@ const LABEL_MAP: Record<keyof typeof OrderStatus, string> = {
   awaiting_shipment: "Awaiting Shipment",
   fulfilled: "Fulfilled",
   shipped: "Shipped",
+  received: "Received",
+  awaiting_processing: "Awaiting Processing",
 };
 
 const StatusDropdown = ({

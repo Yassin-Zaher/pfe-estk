@@ -53,6 +53,7 @@ export const createCheckoutSession = async ({
   } else {
     order = await db.order.create({
       data: {
+        isPaid: true,
         amount: price / 100,
         userId: userId,
         configurationId: configuration.id,

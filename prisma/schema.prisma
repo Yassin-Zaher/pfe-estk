@@ -11,6 +11,8 @@ enum OrderStatus {
   fulfilled
   shipped
   awaiting_shipment
+  received
+  awaiting_processing
 }
 
 enum PhoneModel {
@@ -82,7 +84,7 @@ model Order {
   userId          String
   amount          Float
   isPaid          Boolean       @default(false)
-  status          OrderStatus   @default(awaiting_shipment)
+  status          OrderStatus   @default(received)
 
   shippingAddress   ShippingAddress? @relation(fields: [shippingAddressId], references: [id])
   shippingAddressId String?
