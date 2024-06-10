@@ -16,6 +16,7 @@ import { default as NextImage } from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import Dropzone, { FileRejection } from "react-dropzone";
+import { GenerateModel } from "./GenrateImage";
 
 const Page = () => {
   const [prompt, setPrompt] = useState("");
@@ -129,6 +130,7 @@ const Page = () => {
           </Dropzone>
         </div>
       </div>
+      <GenerateModel startUpload={startUpload} />
     </>
   );
 };

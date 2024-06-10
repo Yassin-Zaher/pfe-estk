@@ -25,14 +25,6 @@ export const MODELS = {
       label: "T-shirt",
       value: "tshirt",
     },
-    {
-      label: "Black Hoodie",
-      value: "hoodie",
-    },
-    {
-      label: "Custom Design",
-      value: "custom",
-    },
   ],
 } as const;
 

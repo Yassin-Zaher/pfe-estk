@@ -85,6 +85,7 @@
     "react-hook-form": "^7.51.4",
     "react-rnd": "^10.4.10",
     "recharts": "^2.12.7",
+    "replicate": "^0.30.2",
     "resend": "^3.2.0",
     "sharp": "0.32.6",
     "sonner": "^1.4.41",

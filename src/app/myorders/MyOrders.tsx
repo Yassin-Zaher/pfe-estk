@@ -6,6 +6,7 @@ import { CopyIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { COLORS } from "../../../constants";
+import { cn } from "@/lib/utils";
 
 const MyOrders = ({ orders }) => {
   return (
@@ -51,7 +52,7 @@ const ProductImage = ({ imageUrl, model, croppedImageUrl, color }) => {
   )?.tw;
   return (
     <div className="grid gap-4 py-4 h-52 w-full rounded-[10px] object-cover ">
-      {model === "tshirt" || "custom" ? (
+      {model === "tshirt" || model === "custom" ? (
         <Tshirt imgSrc={imageUrl} model={model} />
       ) : (
         <Phone
