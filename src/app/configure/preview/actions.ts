@@ -34,7 +34,7 @@ export const createCheckoutSession = async ({
   if (finish === "textured") price += PRODUCT_PRICES.finish.textured;
   if (material === "polycarbonate")
     price += PRODUCT_PRICES.material.polycarbonate;
-  if (model === "custom" && Array.isArray(productInfo)) {
+  if (Array.isArray(productInfo)) {
     price = price * productInfo.length;
   }
 
