@@ -73,7 +73,6 @@ const ThankYou = () => {
           <p className="mt-2 text-base text-zinc-500">
             We've received your order and you're order status is :{" "}
             <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-              {" "}
               {LABEL_MAP[status]}
             </span>
           </p>
@@ -155,7 +154,6 @@ const ThankYou = () => {
             </div>
           </div>
         </div>
-
         <div className="space-y-6 border-t border-zinc-200 pt-10 text-sm">
           <div className="flex justify-between">
             <p className="font-medium text-zinc-900">Subtotal</p>

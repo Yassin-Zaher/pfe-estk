@@ -85,7 +85,7 @@ model Order {
   amount          Float
   isPaid          Boolean       @default(false)
   status          OrderStatus   @default(received)
-
+  prodcutDetails  String?
   shippingAddress   ShippingAddress? @relation(fields: [shippingAddressId], references: [id])
   shippingAddressId String?
   billingAddress    BillingAddress?  @relation(fields: [billingAddressId], references: [id])

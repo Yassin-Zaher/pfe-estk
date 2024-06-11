@@ -161,17 +161,13 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
 
               <div className="my-2 h-px bg-gray-200" />
 
-              <FormBuilder model={model} totalPrice={totalPrice} />
+              <FormBuilder
+                model={model}
+                totalPrice={totalPrice}
+                userId={userId}
+                configId={id}
+              />
             </div>
-          </div>
-
-          <div className="mt-8 flex justify-end pb-12">
-            <Button
-              onClick={() => handleCheckout()}
-              className="px-4 sm:px-6 lg:px-8"
-            >
-              Check out <ArrowRight className="h-4 w-4 ml-1.5 inline" />
-            </Button>
           </div>
         </div>
       </div>

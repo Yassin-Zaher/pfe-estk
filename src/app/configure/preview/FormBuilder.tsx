@@ -3,17 +3,40 @@ import { Input } from "@/components/ui/input";
 import { cn, formatPrice } from "@/lib/utils";
 import { COLORS } from "@/validators/option-validator";
 import { RadioGroup } from "@headlessui/react";
-import { PlusIcon, Search } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { ArrowRight, PlusIcon, Search } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { createCheckoutSession } from "./actions";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
-const FormBuilder = ({ model, totalPrice, onSubmit }) => {
-  console.log(totalPrice);
-
+const FormBuilder = ({ model, totalPrice, userId, configId }) => {
+  const router = useRouter();
   const [query, setQuery] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState(COLORS[0]);
   const [selected, setSelected] = useState([]);
   const [localTotalPrice, setLocalTotalPrice] = useState(totalPrice);
+
+  const { mutate: createPaymentSession } = useMutation({
+    mutationKey: ["get-checkout-session"],
+    mutationFn: createCheckoutSession,
+    onSuccess: ({ url }) => {
+      if (url) router.push(url);
+      else throw new Error("Unable to retrieve payment URL.");
+    },
+    onError: () => {
+      toast.error("There was an error on our end. Please try again.");
+    },
+  });
+
+  const handleCheckout = () => {
+    if (userId) {
+      createPaymentSession({ configId, usrId: userId, productInfo: selected });
+    } else {
+      localStorage.setItem("configurationId", id);
+    }
+  };
 
   const inputRef = useRef(null);
 
@@ -63,7 +86,7 @@ const FormBuilder = ({ model, totalPrice, onSubmit }) => {
       </div>
       <div className="flex items-center justify-between py-2">
         <p className="font-semibold text-gray-900">Color</p>
-        <p className="font-semibold text-gray-900">
+        <div className="font-semibold text-gray-900">
           <RadioGroup value={selectedColor} onChange={handleColorChange}>
             <div className="mt-3 flex items-center space-x-3">
               {COLORS.map((color) => (
@@ -89,7 +112,7 @@ const FormBuilder = ({ model, totalPrice, onSubmit }) => {
               ))}
             </div>
           </RadioGroup>
-        </p>
+        </div>
       </div>
       <div className="flex items-center justify-between py-2">
         <Button onClick={handleAddSelected} className="px-4 sm:px-6 lg:px-8">
@@ -135,6 +158,15 @@ const FormBuilder = ({ model, totalPrice, onSubmit }) => {
         <p className="font-semibold text-gray-900">
           {formatPrice(localTotalPrice / 100)}
         </p>
+      </div>
+
+      <div className="mt-8 flex justify-end pb-12">
+        <Button
+          onClick={() => handleCheckout()}
+          className="px-4 sm:px-6 lg:px-8"
+        >
+          Check out <ArrowRight className="h-4 w-4 ml-1.5 inline" />
+        </Button>
       </div>
     </>
   );

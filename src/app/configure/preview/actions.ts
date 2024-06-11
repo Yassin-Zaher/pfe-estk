@@ -9,9 +9,7 @@ import { Order } from "@prisma/client";
 export const createCheckoutSession = async ({
   configId,
   usrId,
-}: {
-  configId: string;
-  usrId: string;
+  productInfo,
 }) => {
   const configuration = await db.configuration.findUnique({
     where: { id: configId },
@@ -30,12 +28,15 @@ export const createCheckoutSession = async ({
 
   const userId = user.id;
 
-  const { finish, material } = configuration;
+  const { finish, material, model } = configuration;
 
   let price = BASE_PRICE;
   if (finish === "textured") price += PRODUCT_PRICES.finish.textured;
   if (material === "polycarbonate")
     price += PRODUCT_PRICES.material.polycarbonate;
+  if (model === "custom" && Array.isArray(productInfo)) {
+    price = price * productInfo.length;
+  }
 
   let order: Order | undefined = undefined;
 
@@ -56,13 +57,14 @@ export const createCheckoutSession = async ({
         isPaid: true,
         amount: price / 100,
         userId: userId,
+        prodcutDetails: JSON.stringify(productInfo),
         configurationId: configuration.id,
       },
     });
   }
 
   const product = await stripe.products.create({
-    name: "Custom iPhone Case",
+    name: "Custom Design",
     images: [configuration.imageUrl],
     default_price_data: {
       currency: "USD",
