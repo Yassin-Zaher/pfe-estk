@@ -7,7 +7,7 @@ import { getShapeInfo } from "../../lib/utils";
 const LeftSidebar = ({ allShapes }: { allShapes: Array<any> }) => {
   const memoizedShapes = useMemo(
     () => (
-      <section className="flex flex-col border-t border-primary-grey-200 bg-primary-black text-white min-w-[150px] sticky left-0 h-full max-sm:hidden select-none overflow-y-auto pb-20">
+      <section className="hidden md:flex flex-col border-t border-primary-grey-200 bg-primary-black text-white min-w-[150px] sticky left-0 h-full max-sm:hidden select-none overflow-y-auto pb-20">
         <h3 className="border border-primary-grey-200 px-5 py-4 text-xs uppercase">
           Layers
         </h3>

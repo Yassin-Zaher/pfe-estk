@@ -16,6 +16,7 @@ import { Footer } from "./footer";
 import { Overlay } from "./overlay";
 import { useMutation } from "@tanstack/react-query";
 import { favouriteBoard, unfavouriteBoard } from "@/app/board/actions";
+import { useState } from "react";
 
 type BoardCardProps = {
   id: string;
@@ -25,6 +26,7 @@ type BoardCardProps = {
   authorName: string;
   createdAt: number;
   orgId: string;
+  userId: string;
   isFavourite: boolean;
 };
 
@@ -36,10 +38,10 @@ export const BoardCard = ({
   authorName,
   createdAt,
   orgId,
-  isFavourite,
+  userId,
+  isFavourite: initialIsFavorite,
 }: BoardCardProps) => {
-  const { userId } = useAuth();
-
+  const [isFavorite, setIsFavorite] = useState(initialIsFavorite);
   const authorLabel = userId === authorId ? "You" : authorName;
   const createdAtLabel = formatDistanceToNow(createdAt, {
     addSuffix: true,
@@ -49,7 +51,8 @@ export const BoardCard = ({
     useMutation({
       mutationKey: ["favourite-board"],
       mutationFn: async (args) => {
-        await favouriteBoard(args);
+        const result = await favouriteBoard(args);
+        setIsFavorite(result.isFavourite);
       },
       onError: () => {
         toast.error("Something went wrong");
@@ -62,7 +65,8 @@ export const BoardCard = ({
     useMutation({
       mutationKey: ["favourite-board"],
       mutationFn: async (args) => {
-        await unfavouriteBoard(args);
+        const result = await unfavouriteBoard(args);
+        setIsFavorite(result.isFavourite);
       },
       onError: () => {
         toast.error("Something went wrong");
@@ -73,7 +77,7 @@ export const BoardCard = ({
     });
 
   const toggleFavourite = async () => {
-    if (isFavourite) {
+    if (isFavorite) {
       unFavouriteBoardMutation({ id });
     } else favouriteBoardMutation({ id, orgId });
   };
@@ -92,7 +96,7 @@ export const BoardCard = ({
         </div>
 
         <Footer
-          isFavourite={isFavourite}
+          isFavourite={isFavorite}
           title={title}
           authorLabel={authorLabel}
           createdAtLabel={createdAtLabel}

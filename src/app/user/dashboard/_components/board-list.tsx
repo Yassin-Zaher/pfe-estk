@@ -27,8 +27,11 @@ export const BoardList = ({ orgId, query }: BoardListProps) => {
 
   const { data, isLoading, isError } = useQuery({
     queryKey,
-    queryFn: () => getBoards({ orgId, ...query }),
-    enabled: !!userId,
+    queryFn: async () => {
+      const data = await getBoards({ orgId, userId, ...query });
+      return data;
+    },
+    //enabled: !!userId,
     onError: () => {
       toast.error("Something went wrong");
     },
@@ -37,7 +40,7 @@ export const BoardList = ({ orgId, query }: BoardListProps) => {
     },
   });
 
-  if (data === undefined)
+  if (isLoading)
     return (
       <div>
         <h2 className="text-3xl">
@@ -73,7 +76,7 @@ export const BoardList = ({ orgId, query }: BoardListProps) => {
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-8 pb-10">
-        <NewBoardButton orgId={orgId} />
+        <NewBoardButton orgId={orgId} disabled={isLoading} />
         {data?.map((board) => (
           <BoardCard
             key={board.id}
@@ -84,6 +87,7 @@ export const BoardList = ({ orgId, query }: BoardListProps) => {
             authorName={board.authorName}
             createdAt={board.createdAt}
             orgId={board.orgId}
+            userId={userId}
             isFavourite={board.isFavourite}
           />
         ))}

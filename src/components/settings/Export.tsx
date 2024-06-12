@@ -208,7 +208,7 @@ const Export = ({ fabricRef }) => {
         className="w-full border border-canvas-grey-100 hover:bg-canvas-green hover:text-canvas-black"
         onClick={convertCanvasToPngDirect}
       >
-        Export to PDF
+        Procced to payment
       </Button>
     </div>
   );

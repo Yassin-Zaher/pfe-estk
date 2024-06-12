@@ -38,15 +38,21 @@ export const create = async ({ orgId, title }) => {
 
 type GetBoardsInput = {
   orgId: string;
+  userId: string;
   search?: string;
   favourites?: string;
 };
 export const getBoards = async ({
   orgId,
+  userId,
   search,
   favourites,
 }: GetBoardsInput) => {
-  const user = await currentUser();
+  const user = await db.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
 
   if (!user) throw new Error("Unauthorized.");
 
@@ -83,8 +89,6 @@ export const getBoards = async ({
       },
     });
   } else {
-    console.log("Lookinh for boards");
-
     boards = await db.board.findMany({
       where: {
         orgId,

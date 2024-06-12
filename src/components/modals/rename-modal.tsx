@@ -32,6 +32,7 @@ export const RenameModal = () => {
     },
     onSuccess: () => {
       toast.success("Board updated successfully");
+      router.push("/user/dashboard");
       onClose();
     },
   });

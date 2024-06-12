@@ -91,15 +91,17 @@ export const navElements = [
     value: "reset",
     name: "Reset",
   },
-  {
-    icon: "/assets/comments.svg",
-    value: ArticleValues,
-    name: "Article",
-  },
+
   {
     icon: "/assets/comments.svg",
     value: "comments",
     name: "Comments",
+  },
+
+  {
+    icon: "/assets/clothes-clothing.svg",
+    value: ArticleValues,
+    name: "Article",
   },
 ];
 
