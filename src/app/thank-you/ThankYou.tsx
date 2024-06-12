@@ -99,7 +99,17 @@ const ThankYou = () => {
 
         {model === "custom" || model === "tshirt" ? (
           <div className="flex space-x-6 overflow-hidden mt-4 rounded-xl bg-white ring-1 ring-inset lg:rounded-2xl">
-            <Tshirt imgSrc={imageUrl} model={model} />
+            <Tshirt
+              imgSrc={
+                model === "custom" ? imageUrl : configuration.croppedImageUrl
+              }
+              className={
+                model === "custom"
+                  ? ""
+                  : cn(`bg-${tw}`, "max-w-[150px] md:max-w-full")
+              }
+              model={model}
+            />
           </div>
         ) : (
           <div className="flex space-x-6 overflow-hidden mt-4 rounded-xl bg-gray-900/5 ring-1 ring-inset ring-gray-900/10 lg:rounded-2xl">

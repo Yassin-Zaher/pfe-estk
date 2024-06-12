@@ -25,7 +25,7 @@ const Tshirt = ({ imgSrc, model, className, ...props }) => {
       {model === "custom" ? (
         <img
           src={imgSrc}
-          className="pointer-events-none z-50 select-none"
+          className="pointer-events-none z-50 select-none "
           alt="phone image"
         />
       ) : (
