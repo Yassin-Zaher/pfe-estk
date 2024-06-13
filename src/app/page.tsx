@@ -16,7 +16,7 @@ export default function Home() {
         <div className="flex-1 flex flex-col h-full">
           <div className="bg-slate-50 grainy-light">
             <section>
-              <MaxWidthWrapper className="pb-10 pt-5 lg:grid lg:grid-cols-3 sm:pb-32 lg:gap-x-0 xl:gap-x-8 lg:pt-24 xl:pt-32 lg:pb-52">
+              <MaxWidthWrapper className="pb-10 pt-5 lg:grid lg:grid-cols-3 sm:pb-32 lg:gap-x-0 xl:gap-x-8 lg:pt-10 xl:pt-15 lg:pb-20">
                 <div className="col-span-2 px-6 lg:px-0 lg:pt-4">
                   <div className="relative mx-auto text-center lg:text-left flex flex-col items-center lg:items-start">
                     <h3 className="relative w-fit tracking-tight text-balance mt-8 font-bold !leading-tight text-gray-900 text-4xl md:text-5xl lg:text-6xl">
@@ -147,7 +147,7 @@ export default function Home() {
                         </li>
                         <li className="flex gap-1.5 items-center text-left">
                           <Check className="h-5 w-5 shrink-0 text-green-600" />
-                          Modern iPhone models supported
+                          100% Free to use
                         </li>
                       </div>
                     </ul>
