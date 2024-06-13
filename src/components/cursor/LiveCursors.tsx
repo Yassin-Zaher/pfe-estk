@@ -7,7 +7,7 @@ import { useOthers } from "../../../liveblocks.config";
 const LiveCursors = () => {
   const others = useOthers();
 
-  return others.map(({ connectionId, presence }) => {
+  return others.map(({ connectionId, presence, info }) => {
     if (presence == null || !presence?.cursor) {
       return null;
     }
@@ -18,6 +18,7 @@ const LiveCursors = () => {
         x={presence.cursor.x}
         y={presence.cursor.y}
         message={presence.message}
+        name={info.name}
       />
     );
   });

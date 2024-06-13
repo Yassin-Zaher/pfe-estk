@@ -261,7 +261,7 @@ const Live = ({
         onPointerUp={handlePointerUp}
         className="relative flex h-full w-full flex-1 items-center justify-center bg-slate-100"
       >
-        <canvas ref={canvasRef} />
+        <canvas ref={canvasRef} className="object-contain" />
 
         {reactions.map((reaction) => (
           <FlyingReaction

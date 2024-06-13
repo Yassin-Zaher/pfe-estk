@@ -52,7 +52,7 @@ export const OrgSidebar = () => {
         >
           <Link href="/user/dashboard">
             <LayoutDashboard className="h-4 w-4 mr-2" />
-            Team boards
+            Team designs
           </Link>
         </Buttons>
 
@@ -69,7 +69,7 @@ export const OrgSidebar = () => {
             }}
           >
             <Star className="h-4 w-4 mr-2" />
-            Favourite boards
+            Favourite designs
           </Link>
         </Buttons>
       </div>

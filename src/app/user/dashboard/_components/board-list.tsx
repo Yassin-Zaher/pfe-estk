@@ -1,6 +1,6 @@
 "use client";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 import { BoardCard } from "./board-card";
 import { EmptyBoards } from "./empty-boards";
@@ -23,14 +23,11 @@ type BoardListProps = {
 export const BoardList = ({ orgId, query }: BoardListProps) => {
   const { userId } = useAuth();
 
-  const queryKey = ["getBoards", { orgId, ...query }];
+  const queryKey = ["getBoards", { orgId, userId, ...query }];
 
   const { data, isLoading, isError } = useQuery({
     queryKey,
-    queryFn: async () => {
-      const data = await getBoards({ orgId, userId, ...query });
-      return data;
-    },
+    queryFn: () => getBoards({ orgId, userId, ...query }),
     //enabled: !!userId,
     onError: () => {
       toast.error("Something went wrong");
@@ -40,11 +37,13 @@ export const BoardList = ({ orgId, query }: BoardListProps) => {
     },
   });
 
-  if (isLoading)
+  console.log(data);
+
+  if (data === undefined) {
     return (
       <div>
         <h2 className="text-3xl">
-          {query.favourites ? "Favourite boards" : "Team boards"}
+          {query.favourites ? "Favourite designs" : "Team designs"}
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-8 pb-10">
@@ -56,6 +55,7 @@ export const BoardList = ({ orgId, query }: BoardListProps) => {
         </div>
       </div>
     );
+  }
 
   if (!data?.length && query.search) {
     return <EmptySearch />;
@@ -72,7 +72,7 @@ export const BoardList = ({ orgId, query }: BoardListProps) => {
   return (
     <div>
       <h2 className="text-3xl">
-        {query.favourites ? "Favourite boards" : "Team boards"}
+        {query.favourites ? "Favourite designs" : "Team designs"}
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-8 pb-10">

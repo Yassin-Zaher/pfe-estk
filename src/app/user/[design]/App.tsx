@@ -39,7 +39,7 @@ const workSans = Work_Sans({
   variable: "--font-work-sans",
   weight: ["400", "600", "700"],
 });
-export default function App() {
+export default function Home() {
   const undo = useUndo();
   const redo = useRedo();
 

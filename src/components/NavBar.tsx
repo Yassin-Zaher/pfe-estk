@@ -27,7 +27,7 @@ const Navbar = () => {
               <>
                 {isAdmin ? (
                   <Link
-                    href="/dashboard"
+                    href="/dashboard/stats"
                     className={buttonVariants({
                       size: "sm",
                       variant: "ghost",
@@ -58,6 +58,7 @@ const Navbar = () => {
                   <ArrowRight className="ml-1.5 h-5 w-5" />
                 </Link>
                 <Link
+                  prefetch={true}
                   href="/user/dashboard"
                   className={buttonVariants({
                     size: "sm",

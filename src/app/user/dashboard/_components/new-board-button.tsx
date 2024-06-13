@@ -44,7 +44,7 @@ export const NewBoardButton = ({ orgId, disabled }: NewBoardButtonProps) => {
     >
       <div aria-hidden />
       <Plus className="h-12 w-12 text-white stroke-1" />
-      <p className="text-sm text-white font-light">New board</p>
+      <p className="text-sm text-white font-light">New design</p>
     </button>
   );
 };

@@ -33,7 +33,7 @@ const RightSidebar = ({
   // memoize the content of the right sidebar to avoid re-rendering on every mouse actions
   const memoizedContent = useMemo(
     () => (
-      <section className="!bg-primary-black flex flex-col border-t border-primary-grey-200  text-white min-w-[227px] sticky right-0 h-full max-sm:hidden select-none overflow-auto">
+      <section className="hidden !bg-primary-black lg:flex flex-col border-t border-primary-grey-200  text-white min-w-[227px] sticky right-0 h-full max-lg:hidden select-none overflow-y-auto">
         <h3 className=" px-5 pt-4 text-xs uppercase">Design</h3>
 
         <Export fabricRef={fabricRef} />
