@@ -4,7 +4,7 @@ import { CollaborativeApp } from "./CollaborativeApp";
 import { Work_Sans } from "next/font/google";
 import Live from "@/components/Live";
 import CanvasNavBar from "@/components/CanvasNavBar";
-import LeftSidebar from "@/components/LeftSideBar";
+import LeftSidebar from "@/components/LeftSidebar";
 import RightSidebar from "@/components/RightSidebar";
 import { useEffect, useRef, useState } from "react";
 import { fabric } from "fabric";
