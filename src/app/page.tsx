@@ -16,14 +16,10 @@ export default function Home() {
         <div className="flex-1 flex flex-col h-full">
           <div className="bg-slate-50 grainy-light">
             <section>
-              <MaxWidthWrapper className="pb-24 pt-10 lg:grid lg:grid-cols-3 sm:pb-32 lg:gap-x-0 xl:gap-x-8 lg:pt-24 xl:pt-32 lg:pb-52">
+              <MaxWidthWrapper className="pb-10 pt-5 lg:grid lg:grid-cols-3 sm:pb-32 lg:gap-x-0 xl:gap-x-8 lg:pt-24 xl:pt-32 lg:pb-52">
                 <div className="col-span-2 px-6 lg:px-0 lg:pt-4">
                   <div className="relative mx-auto text-center lg:text-left flex flex-col items-center lg:items-start">
-                    <div className="absolute w-28 left-0 -top-20 hidden lg:block">
-                      {/* i forgot this div right here in the video, it's purely visual gradient and looks nice */}
-                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t via-slate-50/50 from-slate-50 h-28" />
-                    </div>
-                    <h3 className="relative w-fit tracking-tight text-balance mt-8 font-bold !leading-tight text-gray-900 text-3xl md:text-6xl lg:text-7xl">
+                    <h3 className="relative w-fit tracking-tight text-balance mt-8 font-bold !leading-tight text-gray-900 text-4xl md:text-5xl lg:text-6xl">
                       Create and print{" "}
                       <span className="bg-green-600 px-2 text-white">
                         Custom
