@@ -1,9 +1,11 @@
+"use client";
 import Footer from "@/components/Footer";
 import { Icons } from "@/components/Icons";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import Navbar from "@/components/NavBar";
 import Phone from "@/components/Phone";
 import { Reviews } from "@/components/Reviews";
+import Tshirt from "@/components/Tshirt";
 import { buttonVariants } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/toaster";
 import { ArrowRight, Check, Star } from "lucide-react";
@@ -29,8 +31,8 @@ export default function Home() {
                     <p className="mt-8 text-lg lg:pr-10 max-w-prose text-center lg:text-left text-balance md:text-wrap">
                       Capture your favorite memories with your own,{" "}
                       <span className="font-semibold">one-of-one</span> phone
-                      case. CaseCobra allows you to protect your memories, not
-                      just your phone case.
+                      case. TexPrints allows you to protect your memories, not
+                      just your clothes.
                     </p>
 
                     <ul className="mt-8 space-y-2 text-left font-medium flex flex-col items-center sm:items-start">
@@ -45,7 +47,7 @@ export default function Home() {
                         </li>
                         <li className="flex gap-1.5 items-center text-left">
                           <Check className="h-5 w-5 shrink-0 text-green-600" />
-                          Modern iPhone models supported
+                          100% Free to use
                         </li>
                       </div>
                     </ul>
@@ -99,19 +101,18 @@ export default function Home() {
 
                 <div className="col-span-full lg:col-span-1 w-full flex justify-center px-8 sm:px-16 md:px-0 mt-32 lg:mx-0 lg:mt-20 h-fit">
                   <div className="relative md:max-w-xl">
-                    <img
-                      src="/your-image.png"
-                      className="absolute w-40 lg:w-52 left-56 -top-20 select-none hidden sm:block lg:hidden xl:block"
-                    />
-                    <img
-                      src="/line.png"
-                      className="absolute w-20 -left-6 -bottom-6 select-none"
-                    />
-                    <Phone className="w-64" imgSrc="/testimonials/1.jpg" />
+                    <video loop autoPlay muted className="w-full h-auto">
+                      <source
+                        src="/assets/women-painting.mp4"
+                        type="video/mp4"
+                      />
+                      Your browser does not support the video tag.
+                    </video>
                   </div>
                 </div>
               </MaxWidthWrapper>
             </section>
+
             <section>
               <MaxWidthWrapper className="pb-24 pt-10 lg:grid lg:grid-cols-3 sm:pb-32 lg:gap-x-0 xl:gap-x-8 lg:pt-24 xl:pt-32 lg:pb-52">
                 <div className="col-span-2 px-6 lg:px-0 lg:pt-4">
@@ -126,12 +127,12 @@ export default function Home() {
                       <span className="bg-green-600 px-2 text-white">
                         Custom
                       </span>{" "}
-                      Case
+                      Products
                     </h1>
                     <p className="mt-8 text-lg lg:pr-10 max-w-prose text-center lg:text-left text-balance md:text-wrap">
                       Capture your favorite memories with your own,{" "}
                       <span className="font-semibold">one-of-one</span> phone
-                      case. CaseCobra allows you to protect your memories, not
+                      case. TexPrints allows you to protect your memories, not
                       just your phone case.
                     </p>
 
@@ -317,7 +318,7 @@ export default function Home() {
                     <h2 className="order-1 mt-2 tracking-tight text-center text-balance !leading-tight font-bold text-5xl md:text-6xl text-gray-900">
                       Upload your photo and get{" "}
                       <span className="relative px-2 bg-green-600 text-white">
-                        your own case
+                        your own product
                       </span>{" "}
                       now
                     </h2>
@@ -333,12 +334,29 @@ export default function Home() {
 
                     <div className="relative h-80 md:h-full w-full md:justify-self-end max-w-sm rounded-xl bg-gray-900/5 ring-inset ring-gray-900/10 lg:rounded-2xl">
                       <img
-                        src="/horse.jpg"
+                        src="/testimonials/14.jpg"
                         className="rounded-md object-cover bg-white shadow-2xl ring-1 ring-gray-900/10 h-full w-full"
                       />
                     </div>
 
-                    <Phone className="w-60" imgSrc="/horse_phone.jpg" />
+                    <Phone className="w-60" imgSrc="/testimonials/14.jpg" />
+                  </div>
+                </div>
+                <div className="mx-auto max-w-6xl px-6 lg:px-8 mt-5">
+                  <div className="relative flex flex-col items-center md:grid grid-cols-2 gap-40">
+                    <img
+                      src="/arrow.png"
+                      className="absolute top-[25rem] md:top-1/2 -translate-y-1/2 z-10 left-1/2 -translate-x-1/2 rotate-90 md:rotate-0"
+                    />
+
+                    <div className="relative h-80 md:h-full w-full md:justify-self-end max-w-sm rounded-xl bg-gray-900/5 ring-inset ring-gray-900/10 lg:rounded-2xl">
+                      <img
+                        src="/testimonials/9.jpg"
+                        className="rounded-md object-cover bg-white shadow-2xl ring-1 ring-gray-900/10 h-full w-full"
+                      />
+                    </div>
+
+                    <Tshirt className="w-60" imgSrc="/testimonials/9.jpg" />
                   </div>
                 </div>
 
@@ -351,12 +369,9 @@ export default function Home() {
                     <Check className="h-5 w-5 text-green-600 inline mr-1.5" />
                     Scratch- and fingerprint resistant coating
                   </li>
+
                   <li className="w-fit">
-                    <Check className="h-5 w-5 text-green-600 inline mr-1.5" />
-                    Wireless charging compatible
-                  </li>
-                  <li className="w-fit">
-                    <Check className="h-5 w-5 text-green-600 inline mr-1.5" />5
+                    <Check className="h-5 w-5 text-green-600 inline mr-1.5" />1
                     year print warranty
                   </li>
 

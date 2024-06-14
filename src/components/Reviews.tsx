@@ -5,6 +5,7 @@ import MaxWidthWrapper from "./MaxWidthWrapper";
 import { useInView } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Phone from "./Phone";
+import Tshirt from "./Tshirt";
 
 const PHONES = [
   "/testimonials/1.jpg",
@@ -13,6 +14,13 @@ const PHONES = [
   "/testimonials/4.jpg",
   "/testimonials/5.jpg",
   "/testimonials/6.jpg",
+  "/testimonials/7.jpg",
+  "/testimonials/8.jpg",
+  "/testimonials/9.jpg",
+  "/testimonials/10.jpg",
+  "/testimonials/11.jpg",
+  "/testimonials/12.jpg",
+  "/testimonials/13.jpg",
 ];
 
 function splitArray<T>(array: Array<T>, numParts: number) {
@@ -94,6 +102,8 @@ function Review({ imgSrc, className, ...props }: ReviewProps) {
       Math.floor(Math.random() * POSSIBLE_ANIMATION_DELAYS.length)
     ];
 
+  const showPhone = Math.random() >= 0.5;
+
   return (
     <div
       className={cn(
@@ -103,7 +113,7 @@ function Review({ imgSrc, className, ...props }: ReviewProps) {
       style={{ animationDelay }}
       {...props}
     >
-      <Phone imgSrc={imgSrc} />
+      {showPhone ? <Phone imgSrc={imgSrc} /> : <Tshirt imgSrc={imgSrc} />}
     </div>
   );
 }
