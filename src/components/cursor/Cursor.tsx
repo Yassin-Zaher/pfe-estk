@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import CursorSVG from "../../../public/assets/CursorSVG";
 
 type Props = {
@@ -13,8 +14,6 @@ const Cursor = ({ color, x, y, message, name }: Props) => (
     style={{ transform: `translateX(${x}px) translateY(${y}px)` }}
   >
     <CursorSVG color={color} />
-    <p className={`text-${color}`}>{name}</p>
-
     {message && (
       <div
         className="absolute left-2 top-5 rounded-3xl px-4 py-2"
@@ -22,6 +21,19 @@ const Cursor = ({ color, x, y, message, name }: Props) => (
       >
         <p className="whitespace-nowrap text-sm leading-relaxed text-white">
           {message}
+        </p>
+      </div>
+    )}
+
+    {!message && (
+      <div className="absolute left-2 top-5 rounded-3xl px-4 py-2">
+        <p
+          className={cn(
+            "whitespace-nowrap text-sm leading-relaxe",
+            `text-${color}`
+          )}
+        >
+          {name}
         </p>
       </div>
     )}

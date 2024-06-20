@@ -18,9 +18,9 @@ const Navbar = () => {
     <nav className="sticky z-[100] h-14 inset-x-0 top-0 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">
       <MaxWidthWrapper>
         <div className="flex h-14 items-center justify-between border-b border-zinc-200">
-          <Link href="/" className="flex z-40 font-semibold">
+          <a href="/" className="flex z-40 font-semibold">
             Tex<span className="text-green-600">prints</span>
-          </Link>
+          </a>
 
           <div className="h-full flex items-center space-x-4">
             {userId ? (
@@ -43,7 +43,7 @@ const Navbar = () => {
                       variant: "ghost",
                     })}
                   >
-                    My Orders ✨
+                    Dashboard ✨
                   </Link>
                 )}
 
@@ -57,8 +57,7 @@ const Navbar = () => {
                   Upload image
                   <ArrowRight className="ml-1.5 h-5 w-5" />
                 </Link>
-                <Link
-                  prefetch={true}
+                <a
                   href="/user/dashboard"
                   className={buttonVariants({
                     size: "sm",
@@ -67,7 +66,7 @@ const Navbar = () => {
                 >
                   Create Design
                   <ArrowRight className="ml-1.5 h-5 w-5" />
-                </Link>
+                </a>
 
                 <div className="h-8 w-px bg-zinc-200 hidden sm:block" />
                 <UserButton afterSignOutUrl="/" />

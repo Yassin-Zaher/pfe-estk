@@ -55,8 +55,24 @@ const ThankYou = () => {
     );
   }
 
-  const { configuration, billingAddress, shippingAddress, amount, status } =
-    data;
+  const {
+    configuration,
+    billingAddress,
+    shippingAddress,
+    amount,
+    status,
+    prodcutDetails,
+  } = data;
+
+  let totalPrice = prodcutDetails ? 0 : amount;
+  if (prodcutDetails) {
+    const productDeatails = JSON.parse(prodcutDetails);
+    productDeatails.forEach((item) => {
+      const quantity = parseInt(item.quantity, 10); // Convert quantity to a number
+      totalPrice += quantity * amount;
+    });
+  }
+
   const { color, model, imageUrl } = configuration;
   const tw = COLORS.find(
     (supportedColor) => supportedColor.value === color
@@ -72,7 +88,7 @@ const ThankYou = () => {
           </h1>
           <p className="mt-2 text-base text-zinc-500">
             We've received your order and you're order status is :{" "}
-            <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+            <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
               {LABEL_MAP[status]}
             </span>
           </p>
@@ -99,17 +115,19 @@ const ThankYou = () => {
 
         {model === "custom" || model === "tshirt" ? (
           <div className="flex space-x-6 overflow-hidden mt-4 rounded-xl bg-white ring-1 ring-inset lg:rounded-2xl">
-            <Tshirt
-              imgSrc={
-                model === "custom" ? imageUrl : configuration.croppedImageUrl
-              }
-              className={
-                model === "custom"
-                  ? ""
-                  : cn(`bg-${tw}`, "max-w-[150px] md:max-w-full")
-              }
-              model={model}
-            />
+            <div className="w-[250px]">
+              <Tshirt
+                className={
+                  model === "custom"
+                    ? ""
+                    : cn(`bg-${tw}`, "max-w-[150px] md:max-w-full")
+                }
+                imgSrc={
+                  model === "custom" ? imageUrl : configuration.croppedImageUrl
+                }
+                model={model}
+              />
+            </div>
           </div>
         ) : (
           <div className="flex space-x-6 overflow-hidden mt-4 rounded-xl bg-gray-900/5 ring-1 ring-inset ring-gray-900/10 lg:rounded-2xl">
@@ -167,7 +185,7 @@ const ThankYou = () => {
         <div className="space-y-6 border-t border-zinc-200 pt-10 text-sm">
           <div className="flex justify-between">
             <p className="font-medium text-zinc-900">Subtotal</p>
-            <p className="text-zinc-700">{formatPrice(amount)}</p>
+            <p className="text-zinc-700">{formatPrice(totalPrice)}</p>
           </div>
           <div className="flex justify-between">
             <p className="font-medium text-zinc-900">Shipping</p>
@@ -175,7 +193,7 @@ const ThankYou = () => {
           </div>
           <div className="flex justify-between">
             <p className="font-medium text-zinc-900">Total</p>
-            <p className="text-zinc-700">{formatPrice(amount)}</p>
+            <p className="text-zinc-700">{formatPrice(totalPrice)}</p>
           </div>
         </div>
       </div>

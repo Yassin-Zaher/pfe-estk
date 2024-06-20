@@ -8,11 +8,12 @@ import {
   useRef,
   useState,
 } from "react";
-import { ComposerSubmitComment } from "@liveblocks/react-comments";
-import { useMaxZIndex } from "../../../lib/useMaxZIndex";
-import { useCreateThread } from "../../../liveblocks.config";
 import { Slot } from "@radix-ui/react-slot";
 import * as Portal from "@radix-ui/react-portal";
+import { ComposerSubmitComment } from "@liveblocks/react-comments/primitives";
+
+import { useCreateThread } from "../../../liveblocks.config";
+import { useMaxZIndex } from "../../../lib/useMaxZIndex";
 
 import PinnedComposer from "./PinnedComposer";
 import NewThreadCursor from "./NewThreadCursor";
@@ -161,16 +162,20 @@ export const NewThread = ({ children }: Props) => {
       event.preventDefault();
       event.stopPropagation();
 
+      // Get your canvas element
       const overlayPanel = document.querySelector("#canvas");
 
+      // if there's no composer coords or last pointer event, meaning the user hasn't clicked yet, don't do anything
       if (!composerCoords || !lastPointerEvent.current || !overlayPanel) {
         return;
       }
 
+      // Set coords relative to the top left of your canvas
       const { top, left } = overlayPanel.getBoundingClientRect();
       const x = composerCoords.x - left;
       const y = composerCoords.y - top;
 
+      // create a new thread with the composer coords and cursor selectors
       createThread({
         body,
         metadata: {
@@ -190,6 +195,15 @@ export const NewThread = ({ children }: Props) => {
 
   return (
     <>
+      {/**
+       * Slot is used to wrap the children of the NewThread component
+       * to allow us to add a click event listener to the children
+       *
+       * Slot: https://www.radix-ui.com/primitives/docs/utilities/slot
+       *
+       * Disclaimer: We don't have to download this package specifically,
+       * it's already included when we install Shadcn
+       */}
       <Slot
         onClick={() =>
           setCreatingCommentState(
@@ -201,7 +215,13 @@ export const NewThread = ({ children }: Props) => {
         {children}
       </Slot>
 
+      {/* if composer coords exist and we're placing a comment, render the composer */}
       {composerCoords && creatingCommentState === "placed" ? (
+        /**
+         * Portal.Root is used to render the composer outside of the NewThread component to avoid z-index issuess
+         *
+         * Portal.Root: https://www.radix-ui.com/primitives/docs/utilities/portal
+         */
         <Portal.Root
           className="absolute left-0 top-0"
           style={{
@@ -214,6 +234,7 @@ export const NewThread = ({ children }: Props) => {
         </Portal.Root>
       ) : null}
 
+      {/* Show the customizing cursor when placing a comment. The one with comment shape */}
       <NewThreadCursor display={creatingCommentState === "placing"} />
     </>
   );

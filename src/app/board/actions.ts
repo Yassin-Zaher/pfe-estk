@@ -70,6 +70,9 @@ export const getBoards = async ({
       ...favourite.Board,
       isFavourite: true,
     }));
+    console.log("[FAVORITE TRUE]");
+
+    console.log(boards);
 
     return boards;
   }
@@ -88,6 +91,9 @@ export const getBoards = async ({
         createdAt: "desc",
       },
     });
+    console.log("[SEARCH TRUE]");
+
+    console.log(boards);
   } else {
     boards = await db.board.findMany({
       where: {

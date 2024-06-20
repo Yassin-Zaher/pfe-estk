@@ -24,8 +24,14 @@ export const BoardList = ({ orgId, query }: BoardListProps) => {
   const { userId } = useAuth();
 
   const queryKey = ["getBoards", { orgId, userId, ...query }];
-
   const { data, isLoading, isError } = useQuery({
+    queryKey,
+    queryFn: async () => await getBoards({ orgId, userId, ...query }),
+    retry: true,
+    retryDelay: 500,
+  });
+
+  /* const { data, isLoading, isError } = useQuery({
     queryKey,
     queryFn: () => getBoards({ orgId, userId, ...query }),
     //enabled: !!userId,
@@ -35,7 +41,7 @@ export const BoardList = ({ orgId, query }: BoardListProps) => {
     onSuccess: () => {
       toast.success("Boards fetched successfully");
     },
-  });
+  }); */
 
   console.log(data);
 

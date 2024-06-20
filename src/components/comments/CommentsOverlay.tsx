@@ -1,12 +1,16 @@
 "use client";
 
 import { useCallback, useRef } from "react";
+import { ThreadData } from "@liveblocks/client";
 import {
+  ThreadMetadata,
   useEditThreadMetadata,
-  useThreads,
   useUser,
+  useThreads,
 } from "../../../liveblocks.config";
+
 import { useMaxZIndex } from "../../../lib/useMaxZIndex";
+
 import { PinnedThread } from "./PinnedThread";
 
 type OverlayThreadProps = {
@@ -15,15 +19,8 @@ type OverlayThreadProps = {
 };
 
 export const CommentsOverlay = () => {
-  /**
-   * We're using the useThreads hook to get the list of threads
-   * in the room.
-   *
-   * useThreads: https://liveblocks.io/docs/api-reference/liveblocks-react#useThreads
-   */
   const { threads } = useThreads();
 
-  // get the max z-index of a thread
   const maxZIndex = useMaxZIndex();
 
   return (
@@ -43,14 +40,15 @@ export const CommentsOverlay = () => {
 
 const OverlayThread = ({ thread, maxZIndex }: OverlayThreadProps) => {
   const editThreadMetadata = useEditThreadMetadata();
-
   const { isLoading } = useUser(thread.comments[0].userId);
+
   const threadRef = useRef<HTMLDivElement>(null);
 
   const handleIncreaseZIndex = useCallback(() => {
     if (maxZIndex === thread.metadata.zIndex) {
       return;
     }
+
     editThreadMetadata({
       threadId: thread.id,
       metadata: {
@@ -72,7 +70,6 @@ const OverlayThread = ({ thread, maxZIndex }: OverlayThreadProps) => {
         transform: `translate(${thread.metadata.x}px, ${thread.metadata.y}px)`,
       }}
     >
-      {/* render the thread */}
       <PinnedThread thread={thread} onFocus={handleIncreaseZIndex} />
     </div>
   );
