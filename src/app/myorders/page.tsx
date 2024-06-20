@@ -17,9 +17,9 @@ const Home = async () => {
     },
   });
   return (
-    <div className="px-20 py-10">
+    <>
       <MyOrders orders={orders} />
-    </div>
+    </>
   );
 };
 export default Home;

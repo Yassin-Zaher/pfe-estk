@@ -63,14 +63,16 @@ export function constructMetadata({
   };
 }
 
+const imageBaseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+
 export const imgUrls = [
-  "http://localhost:3000/canvas/t-shirt.png",
-  "http://localhost:3000/canvas/cup.png",
-  "http://localhost:3000/canvas/iphone.png",
-  "http://localhost:3000/canvas/trie1.png",
-  "http://localhost:3000/canvas/hoodie-with-zipper.png",
-  "http://localhost:3000/canvas/two-hoodies.png",
-  "http://localhost:3000/canvas/two-tshirts.png",
+  `${imageBaseUrl}/canvas/t-shirt.png`,
+  `${imageBaseUrl}/canvas/cup.png`,
+  `${imageBaseUrl}/canvas/iphone.png`,
+  `${imageBaseUrl}/canvas/trie1.png`,
+  `${imageBaseUrl}/canvas/hoodie-with-zipper.png`,
+  `${imageBaseUrl}/canvas/two-hoodies.png`,
+  `${imageBaseUrl}/canvas/two-tshirts.png`,
 ];
 
 const COLORS = ["#DC2626", "#D97706", "#059669", "#7C3AED", "#DB2777"];

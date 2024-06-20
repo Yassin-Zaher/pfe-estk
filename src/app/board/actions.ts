@@ -2,8 +2,6 @@
 import { db } from "@/db";
 import { currentUser, getAuth } from "@clerk/nextjs/server";
 
-import { useMutation } from "@tanstack/react-query";
-
 const images = [
   "/collaboration/placeholders/1.svg",
   "/collaboration/placeholders/2.svg",
@@ -19,6 +17,7 @@ const images = [
 
 export const create = async ({ orgId, title }) => {
   const user = await currentUser();
+
   if (!user) throw new Error("Unauthorized.");
 
   const randomImage = images[Math.floor(Math.random() * images.length)];
@@ -48,6 +47,8 @@ export const getBoards = async ({
   search,
   favourites,
 }: GetBoardsInput) => {
+  console.log(userId);
+
   const user = await db.user.findUnique({
     where: {
       id: userId,

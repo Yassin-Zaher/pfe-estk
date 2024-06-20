@@ -88,8 +88,8 @@ const MyOrders = ({ orders }) => {
       : orders.filter((order) => order.status === selectedStatus); */
 
   return (
-    <div>
-      <h3 className="">My Orders History</h3>
+    <div className="px-20 py-10 bg-slate-50 grainy-light">
+      <h3 className="text-bold">My Orders History</h3>
       <div className="m-4">
         <Select onValueChange={handleStatusChange}>
           <SelectTrigger className="w-[180px]">

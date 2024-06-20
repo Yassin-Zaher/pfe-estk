@@ -220,10 +220,10 @@ const Live = ({
     syncShapeInStorage
   ) => {
     fabric.Image.fromURL("/over-tshirt-image.png", (img) => {
+      const imageBaseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
       const imageObject = canvasForImage.current._objects.find(
-        (o) => o.src === "http://localhost:3000/over-tshirt-image.png"
+        (o) => o.src === `${imageBaseUrl}/over-tshirt-image.png`
       );
-
       if (imageObject) {
         console.log("Image Object");
         console.log(imageObject);
