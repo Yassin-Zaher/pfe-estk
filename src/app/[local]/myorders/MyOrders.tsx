@@ -5,7 +5,7 @@ import { format, formatDate } from "date-fns";
 import { CalendarIcon, CopyIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { COLORS } from "../../../constants";
+import { COLORS } from "@root/constants";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import {
