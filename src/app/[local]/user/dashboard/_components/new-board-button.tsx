@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-import { create } from "@/app/board/actions";
+import { create } from "@/app/[local]/board/actions";
 import { useMutation } from "@tanstack/react-query";
 import { revalidatePath } from "next/cache";
 

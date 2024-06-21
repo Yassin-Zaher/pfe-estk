@@ -8,7 +8,7 @@ import LeftSidebar from "@/components/LeftSidebar";
 import RightSidebar from "@/components/RightSidebar";
 import { useEffect, useRef, useState } from "react";
 import { fabric } from "fabric";
-import { ActiveElement, Attributes } from "../../../../types/type";
+import { ActiveElement, Attributes } from "@root/types/type";
 import {
   handleCanvasMouseDown,
   handleCanvasMouseUp,
@@ -22,17 +22,17 @@ import {
   handleResize,
   initializeFabric,
   renderCanvas,
-} from "../../../../lib/canvas";
+} from "@lib/canvas";
 
 import {
   useMutation,
   useRedo,
   useStorage,
   useUndo,
-} from "../../../../liveblocks.config";
-import { handleDelete, handleKeyDown } from "../../../../lib/key-events";
-import { defaultNavElement } from "../../../../constants";
-import { handleImageUpload } from "../../../../lib/shapes";
+} from "@root/liveblocks.config";
+import { handleDelete, handleKeyDown } from "@lib/key-events";
+import { defaultNavElement } from "@root/constants";
+import { handleImageUpload } from "@root/lib/shapes";
 
 const workSans = Work_Sans({
   subsets: ["latin"],

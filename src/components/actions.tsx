@@ -16,7 +16,7 @@ import {
 import { useMutation } from "@tanstack/react-query";
 
 import { useRenameModal } from "@/store/use-rename-modal";
-import { removeBoard } from "@/app/board/actions";
+import { removeBoard } from "@/app/[local]/board/actions";
 
 type ActionsProps = {
   children: React.ReactNode;

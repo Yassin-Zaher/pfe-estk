@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
-import { create } from "@/app/board/actions";
+import { create } from "@/app/[local]/board/actions";
 
 export const EmptyBoards = () => {
   const { toast } = useToast();

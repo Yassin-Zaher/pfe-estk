@@ -1,3 +1,6 @@
+import createNextIntlPlugin from "next-intl/plugin";
+
+const withNextIntl = createNextIntlPlugin();
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
@@ -57,4 +60,4 @@ const nextConfig = {
   optimizeFonts: false, // Disable font optimization
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

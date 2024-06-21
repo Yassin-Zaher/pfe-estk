@@ -15,7 +15,7 @@ import { useApiMutation } from "@/hooks/use-api-mutation";
 import { Footer } from "./footer";
 import { Overlay } from "./overlay";
 import { useMutation } from "@tanstack/react-query";
-import { favouriteBoard, unfavouriteBoard } from "@/app/board/actions";
+import { favouriteBoard, unfavouriteBoard } from "@/app/[local]/board/actions";
 import { useState } from "react";
 
 type BoardCardProps = {

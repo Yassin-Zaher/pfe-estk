@@ -1,13 +1,25 @@
 "use client";
 import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
-import { buttonVariants } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "./ui/use-toast";
 import { UserButton, useAuth } from "@clerk/nextjs";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
-const Navbar = () => {
+import { Link as I18NLink } from "@/navigation";
+import { useRouter } from "next/navigation";
+
+const Navbar = ({ lang }) => {
   const { isLoaded, userId, sessionId, getToken } = useAuth();
   const { toast } = useToast();
 
@@ -84,16 +96,7 @@ const Navbar = () => {
                     Upload image
                     <ArrowRight className="ml-1.5 h-5 w-5" />
                   </Link>
-                  <Link
-                    href="/user/design"
-                    className={buttonVariants({
-                      size: "sm",
-                      className: "hidden sm:flex items-center gap-1",
-                    })}
-                  >
-                    Create Design
-                    <ArrowRight className="ml-1.5 h-5 w-5" />
-                  </Link>
+
                   <div className="h-8 w-px bg-zinc-200 hidden sm:block cursor-pointer text-sm hover:bg-gray-100" />
                   <Link
                     href="/sign-in"
@@ -107,11 +110,43 @@ const Navbar = () => {
                 </>
               </>
             )}
+
+            <LanguageDropdown lang={lang} />
           </div>
         </div>
       </MaxWidthWrapper>
     </nav>
   );
 };
+
+export function LanguageDropdown({ lang }) {
+  const [position, setPosition] = useState(lang);
+  /* const router = useRouter()
+  const { pid } = router */
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">{position}</Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56">
+        <DropdownMenuLabel>Language</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+
+        <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+          <I18NLink href="/" locale="en">
+            <DropdownMenuRadioItem value="en">English</DropdownMenuRadioItem>
+          </I18NLink>
+          <I18NLink href="/" locale="es">
+            <DropdownMenuRadioItem value="es">Espaniol</DropdownMenuRadioItem>
+          </I18NLink>
+          <I18NLink href="/" locale="fr">
+            <DropdownMenuRadioItem value="fr">Français </DropdownMenuRadioItem>
+          </I18NLink>
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
 
 export default Navbar;

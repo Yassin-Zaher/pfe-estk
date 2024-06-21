@@ -1,6 +1,6 @@
 "use server";
 
-import { getBoard } from "@/app/board/actions";
+import { getBoard } from "@/app/[local]/board/actions";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { Liveblocks } from "@liveblocks/node";
 import { ConvexHttpClient } from "convex/browser";

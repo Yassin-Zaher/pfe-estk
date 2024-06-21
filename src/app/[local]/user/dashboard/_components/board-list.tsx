@@ -10,7 +10,7 @@ import { NewBoardButton } from "./new-board-button";
 import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { getBoards } from "@/app/board/actions";
+import { getBoards } from "@/app/[local]/board/actions";
 
 type BoardListProps = {
   orgId: string;

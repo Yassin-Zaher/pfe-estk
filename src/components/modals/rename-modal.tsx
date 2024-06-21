@@ -18,7 +18,7 @@ import { useRenameModal } from "@/store/use-rename-modal";
 import { useMutation } from "@tanstack/react-query";
 
 import { useRouter } from "next/navigation";
-import { updateBoard } from "@/app/board/actions";
+import { updateBoard } from "@/app/[local]/board/actions";
 
 export const RenameModal = () => {
   const router = useRouter();

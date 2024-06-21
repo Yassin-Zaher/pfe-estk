@@ -12,25 +12,34 @@ import { Toaster as UIToaster } from "@/components/ui/toaster";
 import { Toaster } from "sonner";
 import { currentUser } from "@clerk/nextjs/server";
 
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+
 const inter = Inter({ subsets: ["latin"] });
 const recursive = Recursive({ subsets: ["latin"] });
 
 export const metadata = constructMetadata();
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params: { local },
 }: Readonly<{
   children: React.ReactNode;
+  params: { local: string };
 }>) {
+  const messages = await getMessages();
+
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>
-          <Navbar />
-          <QueryProviders>
-            {children}
-            <ModalProvider />
-          </QueryProviders>
+      <html lang={local}>
+        <body suppressHydrationWarning={true} className={inter.className}>
+          <NextIntlClientProvider messages={messages}>
+            <Navbar lang={local} />
+            <QueryProviders>
+              {children}
+              <ModalProvider />
+            </QueryProviders>
+          </NextIntlClientProvider>
 
           <UIToaster />
           <Toaster theme="light" closeButton richColors />

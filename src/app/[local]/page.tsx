@@ -9,9 +9,11 @@ import Tshirt from "@/components/Tshirt";
 import { buttonVariants } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/toaster";
 import { ArrowRight, Check, Star } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 export default function Home() {
+  const t = useTranslations("Index");
   return (
     <>
       <main className="flex grainy-light flex-col ">
@@ -22,24 +24,23 @@ export default function Home() {
                 <div className="col-span-2 px-6 lg:px-0 lg:pt-4">
                   <div className="relative mx-auto text-center lg:text-left flex flex-col items-center lg:items-start">
                     <h3 className="relative w-fit tracking-tight text-balance mt-8 font-bold !leading-tight text-gray-900 text-4xl md:text-5xl lg:text-6xl">
-                      Create and print{" "}
+                      {t("text1")}{" "}
                       <span className="bg-green-600 px-2 text-white">
-                        Custom
+                        {t("text2")}
                       </span>{" "}
-                      products
+                      {t("text3")}
                     </h3>
                     <p className="mt-8 text-lg lg:pr-10 max-w-prose text-center lg:text-left text-balance md:text-wrap">
-                      Capture your favorite memories with your own,{" "}
-                      <span className="font-semibold">one-of-one</span> phone
-                      case. TexPrints allows you to protect your memories, not
-                      just your clothes.
+                      {t("text4")}{" "}
+                      <span className="font-semibold">{t("text5")}</span>{" "}
+                      {t("text6")}.{t("text7")}
                     </p>
 
                     <ul className="mt-8 space-y-2 text-left font-medium flex flex-col items-center sm:items-start">
                       <div className="space-y-2">
                         <li className="flex gap-1.5 items-center text-left">
                           <Check className="h-5 w-5 shrink-0 text-green-600" />
-                          High-quality, durable material
+                          {t("text8")}
                         </li>
                         <li className="flex gap-1.5 items-center text-left">
                           <Check className="h-5 w-5 shrink-0 text-green-600" />5
@@ -47,7 +48,7 @@ export default function Home() {
                         </li>
                         <li className="flex gap-1.5 items-center text-left">
                           <Check className="h-5 w-5 shrink-0 text-green-600" />
-                          100% Free to use
+                          {t("text9")}
                         </li>
                       </div>
                     </ul>
@@ -351,12 +352,12 @@ export default function Home() {
 
                     <div className="relative h-80 md:h-full w-full md:justify-self-end max-w-sm rounded-xl bg-gray-900/5 ring-inset ring-gray-900/10 lg:rounded-2xl">
                       <img
-                        src="/testimonials/5.jpg"
+                        src="/testimonials/15.jpg"
                         className="rounded-md object-cover bg-white shadow-2xl ring-1 ring-gray-900/10 h-full w-full"
                       />
                     </div>
 
-                    <Tshirt className="w-60" imgSrc="/testimonials/5.jpg" />
+                    <Tshirt className="w-60" imgSrc="/testimonials/15.jpg" />
                   </div>
                 </div>
 
