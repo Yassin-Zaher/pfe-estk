@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import CursorSVG from "../../../public/assets/CursorSVG";
+import CursorSVG from "/assets/CursorSVG";
 
 type Props = {
   color: string;

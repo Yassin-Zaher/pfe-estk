@@ -7,7 +7,7 @@ import { colorToCSS } from "@/lib/utils";
 import {
   useOthersConnectionIds,
   useOthersMapped,
-} from "../../../../../liveblocks.config";
+} from "@root/liveblocks.config";
 
 import { Cursor } from "./cursor";
 import { Path } from "./path";

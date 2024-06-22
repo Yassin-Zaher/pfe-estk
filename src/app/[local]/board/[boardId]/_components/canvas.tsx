@@ -22,7 +22,7 @@ import {
   useOthersMapped,
   useSelf,
   useStorage,
-} from "../../../../../liveblocks.config";
+} from "@root/liveblocks.config";
 import {
   type Camera,
   CanvasMode,

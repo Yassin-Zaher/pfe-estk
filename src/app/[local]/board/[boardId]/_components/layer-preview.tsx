@@ -3,7 +3,7 @@
 import React, { memo } from "react";
 
 import { colorToCSS } from "@/lib/utils";
-import { useStorage } from "../../../../../liveblocks.config";
+import { useStorage } from "@root/liveblocks.config";
 import { LayerType } from "@/types/canvas";
 
 import { Ellipse } from "./eliipse";

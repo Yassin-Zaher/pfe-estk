@@ -4,7 +4,7 @@ import ContentEditable, {
 } from "react-contenteditable";
 
 import { cn, colorToCSS, getContrastingTextColor } from "@/lib/utils";
-import { useMutation } from "../../../../../liveblocks.config";
+import { useMutation } from "@root/liveblocks.config";
 import type { NoteLayer } from "@/types/canvas";
 
 const font = Kalam({
