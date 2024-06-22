@@ -1,8 +1,8 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
-import Header from "@/app/dashboard/_components/shared/Header";
-import TransformationForm from "@/app/dashboard/_components/shared/TransformationForm";
+import Header from "@/app/[local]/dashboard/_components/shared/Header";
+import TransformationForm from "@/app/[local]/dashboard/_components/shared/TransformationForm";
 import { transformationTypes } from "@/constants";
 import { getUserById } from "@/lib/actions/user.actions";
 import { getImageById } from "@/lib/actions/image.actions";
