@@ -38,7 +38,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Tshirt from "@/components/Tshirt";
-import { COLORS } from "@/constants";
+import { COLORS } from "@root/constants";
 import { useEffect, useState } from "react";
 import {
   Select,
