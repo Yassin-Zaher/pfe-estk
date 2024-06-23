@@ -5,8 +5,8 @@ const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
 });
 
-const WEBHOOK_HOST = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
+const WEBHOOK_HOST = process.env.NEXT_PUBLIC_VERCEL_URL
+  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
   : process.env.NGROK_HOST;
 
 export async function POST(request) {
