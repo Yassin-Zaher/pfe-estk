@@ -11,7 +11,7 @@ const Page = async () => {
       isPaid: true,
       createdAt: {
         // get me the order from the last week
-        gte: new Date(new Date().setDate(new Date().getDate() - 7)),
+        gte: new Date(new Date().setDate(new Date().getDate() - 15)),
       },
     },
     orderBy: {

@@ -23,11 +23,13 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 export const GenerateModel = ({ startUpload }) => {
   const [prediction, setPrediction] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     const response = await fetch("/api/predictions", {
       method: "POST",
       headers: {
@@ -40,6 +42,7 @@ export const GenerateModel = ({ startUpload }) => {
     let prediction = await response.json();
     if (response.status !== 201) {
       setError(prediction.detail);
+      setIsLoading(false);
       return;
     }
     setPrediction(prediction);
@@ -53,11 +56,13 @@ export const GenerateModel = ({ startUpload }) => {
       prediction = await response.json();
       if (response.status !== 200) {
         setError(prediction.detail);
+        setIsLoading(false);
         return;
       }
       console.log({ prediction });
       setPrediction(prediction);
     }
+    setIsLoading(false);
   };
 
   const handleUpload = () => {
@@ -95,7 +100,12 @@ export const GenerateModel = ({ startUpload }) => {
               name="prompt"
               placeholder="What do you want to see!"
             />
-            <Button className="mt-1" type="submit">
+            <Button
+              isLoading={isLoading}
+              disabled={isLoading}
+              className="mt-1"
+              type="submit"
+            >
               Go!
             </Button>
           </form>
