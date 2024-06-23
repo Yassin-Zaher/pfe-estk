@@ -53,7 +53,7 @@ const MediaUploader = ({
 
   return (
     <CldUploadWidget
-      uploadPreset="zlmiuxuh"
+      uploadPreset="pfe_estk"
       options={{
         multiple: false,
         resourceType: "image",
