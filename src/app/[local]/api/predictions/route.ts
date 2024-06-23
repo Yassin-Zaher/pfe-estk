@@ -5,10 +5,6 @@ const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
 });
 
-/* const WEBHOOK_HOST = process.env.NEXT_PUBLIC_VERCEL_URL
-  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-  : process.env.NGROK_HOST; */
-
 export async function POST(request) {
   if (!process.env.REPLICATE_API_TOKEN) {
     throw new Error(
@@ -22,11 +18,6 @@ export async function POST(request) {
     version: "8beff3369e81422112d93b89ca01426147de542cd4684c244b673b105188fe5f",
     input: { prompt },
   };
-
-  /* if (WEBHOOK_HOST) {
-    options.webhook = `${WEBHOOK_HOST}/api/webhooks`;
-    options.webhook_events_filter = ["start", "completed"];
-  } */
 
   const prediction = await replicate.predictions.create(options);
 
