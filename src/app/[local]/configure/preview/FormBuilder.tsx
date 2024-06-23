@@ -28,7 +28,7 @@ const FormBuilder = ({ model, totalPrice, userId, configId }) => {
   const [localTotalPrice, setLocalTotalPrice] = useState(totalPrice);
   const [size, setSize] = useState("Small (S)");
 
-  const { mutate: createPaymentSession } = useMutation({
+  const { mutate: createPaymentSession, isPending } = useMutation({
     mutationKey: ["get-checkout-session"],
     mutationFn: createCheckoutSession,
     onSuccess: ({ url }) => {
@@ -211,6 +211,8 @@ const FormBuilder = ({ model, totalPrice, userId, configId }) => {
 
       <div className="mt-8 flex justify-end pb-12">
         <Button
+          isLoading={isPending}
+          disabled={isPending}
           onClick={() => handleCheckout()}
           className="px-4 sm:px-6 lg:px-8"
         >

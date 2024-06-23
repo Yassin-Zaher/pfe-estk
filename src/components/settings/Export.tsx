@@ -205,6 +205,8 @@ const Export = ({ fabricRef }) => {
     <div className="flex flex-col gap-3 px-5 py-3">
       <h3 className="text-[10px] uppercase">Export</h3>
       <Button
+        isLoading={isUploading}
+        disabled={isUploading}
         className="w-full border border-canvas-grey-100 hover:bg-canvas-green hover:text-canvas-black"
         onClick={convertCanvasToPngDirect}
       >

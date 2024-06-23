@@ -63,7 +63,11 @@ export function constructMetadata({
   };
 }
 
-const imageBaseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+let imageBaseUrl = "http://localhost:3000";
+
+if (process.env.NODE_ENV === "production") {
+  imageBaseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+}
 
 export const imgUrls = [
   `${imageBaseUrl}/canvas/t-shirt.png`,

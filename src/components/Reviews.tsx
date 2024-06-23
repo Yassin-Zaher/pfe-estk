@@ -102,7 +102,8 @@ function Review({ imgSrc, className, ...props }: ReviewProps) {
       Math.floor(Math.random() * POSSIBLE_ANIMATION_DELAYS.length)
     ];
 
-  const showPhone = Math.random() >= 0.5;
+  const imgNumber = parseInt(imgSrc.match(/\d+/)[0], 10);
+  const showPhone = imgNumber % 2 === 0;
 
   return (
     <div
@@ -113,7 +114,7 @@ function Review({ imgSrc, className, ...props }: ReviewProps) {
       style={{ animationDelay }}
       {...props}
     >
-      {showPhone ? <Phone imgSrc={imgSrc} /> : <Tshirt imgSrc={imgSrc} />}
+      {!showPhone ? <Phone imgSrc={imgSrc} /> : <Tshirt imgSrc={imgSrc} />}
     </div>
   );
 }

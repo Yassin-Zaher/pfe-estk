@@ -93,12 +93,6 @@ export const navElements = [
   },
 
   {
-    icon: "/assets/comments.svg",
-    value: "comments",
-    name: "Comments",
-  },
-
-  {
     icon: "/assets/clothes-clothing.svg",
     value: ArticleValues,
     name: "Article",

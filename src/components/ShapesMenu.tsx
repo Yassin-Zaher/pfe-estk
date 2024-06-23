@@ -38,6 +38,7 @@ const ShapesMenu = ({
     const imageObject = canvasForImage.current._objects.find((o) =>
       imgUrls.includes(o.src)
     );
+
     if (imageObject) {
       deleteImageFromStorage(imageObject.objectId);
     }

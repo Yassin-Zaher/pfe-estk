@@ -5,6 +5,7 @@ import createMiddleware from "next-intl/middleware";
 const isProtectedRoute = createRouteMatcher([
   "(.*)/user(.*)",
   "(.*)/configure(.*)",
+  "(.*)/myorders(.*)",
 ]);
 
 const intlMiddleware = createMiddleware({

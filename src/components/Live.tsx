@@ -288,7 +288,6 @@ const Live = ({
           />
         )}
         <LiveCursors />
-        {/*  <Comments /> */}
       </ContextMenuTrigger>
       <ContextMenuContent className="right-menu-content">
         {shortcuts.map((item) => (

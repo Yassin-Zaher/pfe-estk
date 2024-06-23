@@ -24,7 +24,7 @@ import { CalendarIcon, Copy, CopyIcon } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
-
+import * as XLSX from "xlsx";
 import {
   Dialog,
   DialogContent,
@@ -63,6 +63,9 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useMutation } from "@tanstack/react-query";
+import { changeOrderStatus } from "../actions";
+import { useRouter } from "next/navigation";
 
 const Orders = ({ orders }) => {
   const rowsPerPage = 8;
@@ -122,11 +125,6 @@ const Orders = ({ orders }) => {
     return true;
   });
 
-  /* const filteredOrders =
-    selectedStatus === "all"
-      ? orders
-      : orders.filter((order) => order.status === selectedStatus); */
-
   const handleCopyImageLink = async (imageUrl) => {
     try {
       await navigator.clipboard.writeText(imageUrl);
@@ -136,9 +134,7 @@ const Orders = ({ orders }) => {
       toast.error("Failed to copy:");
     }
   };
-  const handleExportToCsv = () => {
-    console.log(filteredOrders);
-  };
+
   return (
     <div className="max-w-7xl w-full mx-auto flex flex-col sm:gap-4 sm:py-4">
       <div className="flex flex-col gap-8">
@@ -248,11 +244,6 @@ const Orders = ({ orders }) => {
           </div>
         </div>
 
-        {/* <div className="w-full flex justify-end">
-          <Button onClick={handleExportToCsv} variant="default">
-            Export to csv
-          </Button>
-        </div> */}
         <Table>
           <TableHeader>
             <TableRow>
@@ -287,6 +278,7 @@ const Orders = ({ orders }) => {
                   </TableCell>
                   <TableCell className="text-right">
                     <DialogDemo
+                      orderId={order.id}
                       croppedImageUrl={order.configuration.croppedImageUrl}
                       model={order.configuration.model}
                       imageUrl={order.configuration.imageUrl}
@@ -332,13 +324,15 @@ const Orders = ({ orders }) => {
             <PaginationItem>
               <PaginationNext
                 className={
-                  endIndex === 16
+                  orders.length <= endIndex
                     ? "pointer-events-none cursor-pointer opacity-50"
                     : undefined
                 }
                 onClick={() => {
-                  setStartIndex(startIndex + rowsPerPage); //10
-                  setEndIndex(endIndex + rowsPerPage); //10 + 10 = 20
+                  if (orders.length > endIndex) {
+                    setStartIndex(startIndex + rowsPerPage);
+                    setEndIndex(endIndex + rowsPerPage);
+                  }
                 }}
               />
             </PaginationItem>
@@ -351,8 +345,21 @@ const Orders = ({ orders }) => {
 
 export default Orders;
 
-export function DialogDemo({ imageUrl, model, croppedImageUrl, color }) {
+export function DialogDemo({
+  orderId,
+  imageUrl,
+  model,
+  croppedImageUrl,
+  color,
+}) {
   const [dialogHeight, setDialogHeight] = useState("auto");
+  const router = useRouter();
+
+  const { mutate } = useMutation({
+    mutationKey: ["change-order-status"],
+    mutationFn: changeOrderStatus,
+    onSuccess: () => router.refresh(),
+  });
 
   useEffect(() => {
     const img = new Image();
@@ -363,13 +370,62 @@ export function DialogDemo({ imageUrl, model, croppedImageUrl, color }) {
     };
   }, [imageUrl, croppedImageUrl, model]);
 
-  const handleDownload = () => {
+  const downloadExelFile = () => {
+    // Create a new workbook
+    const wb = XLSX.utils.book_new();
+
+    // Create a worksheet
+    const ws = XLSX.utils.aoa_to_sheet([
+      ["Order ID", "Image URL"],
+      [orderId, imageUrl],
+    ]);
+
+    // Add the worksheet to the workbook
+    XLSX.utils.book_append_sheet(wb, ws, "Orders");
+
+    // Create an HTML anchor element to trigger the download
     const link = document.createElement("a");
-    link.href = imageUrl;
-    link.download = "image.png"; // You can set the default filename here
-    document.body.appendChild(link);
+    const wbout = XLSX.write(wb, { bookType: "xlsx", type: "binary" });
+
+    // Convert workbook to Blob
+    function s2ab(s) {
+      const buf = new ArrayBuffer(s.length);
+      const view = new Uint8Array(buf);
+      for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff;
+      return buf;
+    }
+
+    const blob = new Blob([s2ab(wbout)], { type: "application/octet-stream" });
+
+    // Create URL and trigger download
+    const url = window.URL.createObjectURL(blob);
+    link.href = url;
+    link.download = "orders.xlsx"; // Set the filename for the Excel file
     link.click();
-    document.body.removeChild(link);
+
+    // Clean up
+    window.URL.revokeObjectURL(url);
+  };
+
+  const handleDownload = async () => {
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "image.png"; // Set the default filename here
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      mutate({ id: orderId, newStatus: "awaiting_processing" as OrderStatus });
+    } catch (error) {
+      console.error("Error downloading the image:", error);
+    }
+
+    downloadExelFile();
   };
 
   const tw = COLORS.find(
